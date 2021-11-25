@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  nginx:
+    image: 'nginx:stable'
+    volumes:
+      - ./work.conf:/etc/nginx/conf.d/work.conf
+      - ./:/app
+    ports:
+      - '1234:8080'
+    
+  php:
+    image: 'php:7.4-fpm-buster'
+    volumes:
+      - ./:/app
+    working_dir: /app

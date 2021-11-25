@@ -1,0 +1,17 @@
+{
+    "name": "taurinz/survey-form",
+    "autoload": {
+        "files":[
+          "src/app/App.php"
+        ],
+        "classmap": ["src/*"]
+        
+    },
+    "authors": [
+        {
+            "name": "Taurinz359",
+            "email": "workshere359@gmail.com"
+        }
+    ],
+    "require": {}
+}
