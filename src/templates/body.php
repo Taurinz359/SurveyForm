@@ -1,3 +1,5 @@
+
+
 <body translate="no">
 <div class="container">
     <header class="header">
@@ -5,20 +7,20 @@
         <p id="description" class="description text-center">Thank you for taking the time to help us improve the
             platform</p>
     </header>
-    <form method="post" id="survey-form">
+    <form method="post" id="survey-form" action="/survey">
         <div class="form-group">
             <label id="name-label" for="name">Name</label>
-            <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name" required>
+            <input type="text" value="name" name="name" id="name" class="form-control" placeholder="Enter your name" required>
         </div>
         <div class="form-group">
             <label id="email-label" for="Email">Emai</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+            <input type="email" name="email" id="email" class="form-control" value = "dsdsd@dsds.rs" placeholder="Enter your email" required>
         </div>
         <div class="form-group">
             <label id="number-label" for="number">Age
                 <span class="clue">(optional)</span>
             </label>
-            <input type="number" name="age" id="number" min="18" max="99" class="form-control" placeholder="How old are you">
+            <input type="number" value="19" name="age" id="number" min="18" max="99" class="form-control" placeholder="How old are you">
         </div>
         <div class="form-group">
             <p class="text-style">Your current role?</p>
@@ -106,9 +108,6 @@
         </div>
         <div class="form-group">
             <button type="submit" id="submit" class="submit-button">Submit</button>
-        </div>
-        <div class="form-group">
-            <a target="_blank" href="../storage/post.txt" id = "post-file" class="submit-button">Go to POST file</a>
         </div>
     </form>
 </div>

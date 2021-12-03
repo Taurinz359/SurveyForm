@@ -164,3 +164,16 @@ option:disabled{
     text-decoration: none;
     text-align: center;
 }
+
+.id-control{
+    display: inline;
+    width: 30%;
+    height:40px;
+    padding: 10px 7px;
+    color:  black;
+    background-color:whitesmoke;
+    background-clip: padding-box;
+    border: 1px solid gainsboro;
+    border-radius: 0.5rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
