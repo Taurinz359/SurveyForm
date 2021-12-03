@@ -10,7 +10,6 @@ function Run()
 function getCurrentRoute()
 {
     $urlData = parse_url($_SERVER['REQUEST_URI']);
-    var_dump($urlData);
     return $urlData['path'];
 }
 
@@ -34,6 +33,7 @@ function goToRoute($route)
     $rules = [
         '/survey/id' => fn() => actionFindSurvey([]),
         '/' => fn() => actionShowSurveyForm([]),
+        '/survey' => fn() => writePostFile(),
         '/survey/list' => fn() =>showList(),
     ];
     foreach ($rules as $pattern => $method) {
@@ -45,7 +45,7 @@ function goToRoute($route)
 }
 
 function showList (){
-    require_once __DIR__ . '';
+    require_once __DIR__ . '/../templates/list.php';
 }
 
 function actionFindSurvey(array $params)
@@ -67,6 +67,7 @@ function viewPostFile($postId)
 
 function writePostFile()
 {
+    actionShowSurveyForm([]);   
     if (!empty($_POST)) {
         $postId = uniqid();
         foreach ($_POST as $value) {

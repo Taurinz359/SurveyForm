@@ -1,5 +1,3 @@
-
-
 <body translate="no">
 <div class="container">
     <header class="header">
@@ -109,6 +107,13 @@
         <div class="form-group">
             <button type="submit" id="submit" class="submit-button">Submit</button>
         </div>
+        <?php
+            if(!empty($_POST)) {
+                #include_once __DIR__.'/../../vendor/autoload.php';
+                #App\writePostFile();
+                include_once __DIR__ .'/buttons.php';
+            }
+        ?>
     </form>
 </div>
 </body>
