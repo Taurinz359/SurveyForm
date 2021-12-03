@@ -31,7 +31,6 @@ function getCurrentRoute()
 function goToRoute($route)
 {
     $rules = [
-        '/survey/id' => fn() => actionFindSurvey([]),
         '/' => fn() => actionShowSurveyForm([]),
         '/survey' => fn() => writePostFile(),
         '/survey/list' => fn() =>showList(),
@@ -41,16 +40,21 @@ function goToRoute($route)
             $method();
             break;
         }
+        elseif(!empty($_SERVER['QUERY_STRING'])){
+            actionFindSurvey($_GET['file']);
+        }
     }
 }
 
 function showList (){
+    $path = __DIR__ . '/../../storage';
+    $files = array_filter(scandir($path), fn($i) => $i !== '.' & $i !== '..');
     require_once __DIR__ . '/../templates/list.php';
 }
 
-function actionFindSurvey(array $params)
+function actionFindSurvey($params)
 {
-    viewPostFile($params['id'] ?? 'null');
+    viewPostFile($params ?? 'null');
 }
 
 
@@ -62,7 +66,7 @@ function actionShowSurveyForm(array $params)
 
 function viewPostFile($postId)
 {
-    echo file_get_contents(__DIR__."/../../storage/{$postId}.txt");
+    echo file_get_contents(__DIR__."/../../storage/{$postId}");
 }
 
 function writePostFile()

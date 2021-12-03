@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/style.css">
     <title>list</title>
 </head>
+
 <body>
-    <?php
-        $path = __DIR__ . '/../../storage';
-        if ($open = scandir($path)) {
-            foreach ($open as $k => $v) {
-                if ($v != "." && $v != "..") {
-                    echo "<a href = {$v} class  = submit-button>{$v}</a>";
-                }
-            }
-        }
-    ?>
+    <ul>
+        <?php foreach ($files as $file) : ?>
+            <li>
+                <form method='get' action='/survey/'>
+                    <input type='hidden' name='file' value='<?= $file ?>'><button class="submit-button" type='submit'><?= $file ?></button>
+                </form>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
 </body>
+
 </html>
