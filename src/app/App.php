@@ -30,23 +30,65 @@ function getCurrentRoute()
 
 function goToRoute($route)
 {
+    $trimmedRoute = $route !== '/' ? rtrim($route, '/') : $route;
+
     $rules = [
         '/' => fn() => actionShowSurveyForm([]),
-        '/survey' => fn() => writePostFile(),
+        '/survey' => fn() => actionSurvey(),
         '/survey/list' => fn() =>showList(),
     ];
+
     foreach ($rules as $pattern => $method) {
-        if ($pattern === $route) {
+        if ($pattern === $trimmedRoute) {
             $method();
-            break;
-        }
-        elseif(!empty($_SERVER['QUERY_STRING'])){
-            actionFindSurvey($_GET['file']);
-        }
-        else{
-            require_once __DIR__ . "/../templates/404.php";
+            return;
         }
     }
+
+    actionNotFound();
+}
+
+function getHttpMethod()
+{
+    return $_SERVER['REQUEST_METHOD'];
+}
+
+function isGet()
+{
+    return getHttpMethod() === 'GET';
+}
+
+function isPost()
+{
+    return getHttpMethod() === 'POST';
+}
+
+function actionNotFound()
+{
+    http_response_code(404);
+    require_once __DIR__ . "/../templates/404.php";
+}
+
+function redirect($route) 
+{
+    http_response_code(302);
+    header("Location: ${route}");
+    exit();
+}
+
+function actionSurvey()
+{
+    if (isPost()) {
+        writePostFile();
+        return;
+    }
+
+    if (!array_key_exists('file', $_GET)) {
+        actionNotFound();
+        return;
+    }
+
+    actionFindSurvey($_GET['file']);
 }
 
 function showList (){
