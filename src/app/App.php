@@ -66,7 +66,7 @@ function isPost()
 function actionNotFound()
 {
     http_response_code(404);
-    require_once __DIR__ . "/../templates/404.php";
+    view("templates/404");
 }
 
 function redirect($route) 
@@ -79,7 +79,7 @@ function redirect($route)
 function actionSurvey()
 {
     if (isPost()) {
-        writePostFile();
+        IsPostFile();
         return;
     }
 
@@ -92,9 +92,7 @@ function actionSurvey()
 }
 
 function showList (){
-    $path = __DIR__ . '/../../storage';
-    $files = array_filter(scandir($path), fn($i) => $i !== '.' & $i !== '..');
-    require_once __DIR__ . '/../templates/list.php';
+    view("templates/list");
 }
 
 function actionFindSurvey($params)
@@ -103,25 +101,48 @@ function actionFindSurvey($params)
 }
 
 
-function actionShowSurveyForm(array $params)
+function actionShowSurveyForm()
 {
-    require_once __DIR__ . '/../templates/SurveyForm.php';
+    view("templates/SurveyForm");
 }
 
 
 function viewPostFile($postId)
 {
-    echo file_get_contents(__DIR__."/../../storage/{$postId}");
+    echo view("/storage",$postId);
 }
 
-function writePostFile()
+function IsPostFile()
 {
     actionShowSurveyForm([]);   
     if (!empty($_POST)) {
-        $postId = uniqid();
-        foreach ($_POST as $value) {
-            file_put_contents(__DIR__ . "/../../storage/{$postId}.txt" , $value,FILE_APPEND);
-        }
+       recordInFile();
     }
-    return $postId;
+}
+
+function view($file, $postId = null, $value = null){
+    if($file === "templates/SurveyForm"){
+        require_once __DIR__ . '/../templates/SurveyForm.php';
+    }
+    elseif($file === "templates/404"){
+        return require_once __DIR__ . '/../templates/404.php';
+    }
+    elseif($file === "templates/list"){
+        $path = __DIR__ . '/../../storage';
+        $files = array_filter(scandir($path), fn($i) => $i !== '.' & $i !== '..');
+        require_once __DIR__ . '/../templates/list.php';
+    }
+    elseif($file === "/storage" && $postId !== null){
+        return file_get_contents (__DIR__."/../../storage/{$postId}");
+    }
+}
+
+function recordInFile(){
+    $postId = uniqid();
+
+    $json = json_encode($_POST);
+    file_put_contents(__DIR__ . "/../../storage/{$postId}.json",$json,FILE_APPEND);
+    // foreach ($_POST as $value) {
+    //     file_put_contents(__DIR__ . "/../../storage/{$postId}.json" , "{$value} ",FILE_APPEND);
+    // }
 }
