@@ -66,7 +66,7 @@ function isPost()
 function actionNotFound()
 {
     http_response_code(404);
-    view("templates/404");
+    view("404");
 }
 
 function redirect($route) 
@@ -92,7 +92,12 @@ function actionSurvey()
 }
 
 function showList (){
-    view("templates/list");
+    $path = __DIR__ . '/../../storage';
+    $files = array_filter(scandir($path), fn($i) => $i !== '.' & $i !== '..');
+
+    view("list", [
+        'files' => $files,
+    ]);
 }
 
 function actionFindSurvey($params)
@@ -103,46 +108,34 @@ function actionFindSurvey($params)
 
 function actionShowSurveyForm()
 {
-    view("templates/SurveyForm");
+    view("SurveyForm");
 }
 
 
 function viewPostFile($postId)
 {
-    echo view("/storage",$postId);
+    echo file_get_contents (__DIR__."/../../storage/{$postId}");
 }
 
 function IsPostFile()
 {
     actionShowSurveyForm([]);   
     if (!empty($_POST)) {
-       recordInFile();
+       recordInFile($_POST);
     }
 }
 
-function view($file, $postId = null, $value = null){
-    if($file === "templates/SurveyForm"){
-        require_once __DIR__ . '/../templates/SurveyForm.php';
-    }
-    elseif($file === "templates/404"){
-        return require_once __DIR__ . '/../templates/404.php';
-    }
-    elseif($file === "templates/list"){
-        $path = __DIR__ . '/../../storage';
-        $files = array_filter(scandir($path), fn($i) => $i !== '.' & $i !== '..');
-        require_once __DIR__ . '/../templates/list.php';
-    }
-    elseif($file === "/storage" && $postId !== null){
-        return file_get_contents (__DIR__."/../../storage/{$postId}");
-    }
+function view($templateName, $data = []) {
+    $basePath = __DIR__ . '/../templates/';
+    $suffix = '.php';
+
+    $fullPath = $basePath . $templateName . $suffix;
+
+    require_once $fullPath;
 }
 
-function recordInFile(){
+function recordInFile($data){
     $postId = uniqid();
-
-    $json = json_encode($_POST);
-    file_put_contents(__DIR__ . "/../../storage/{$postId}.json",$json,FILE_APPEND);
-    // foreach ($_POST as $value) {
-    //     file_put_contents(__DIR__ . "/../../storage/{$postId}.json" , "{$value} ",FILE_APPEND);
-    // }
+    $json = json_encode($data);
+    file_put_contents(__DIR__ . "/../../storage/{$postId}{$data['name']}.json",$json,FILE_APPEND);
 }
