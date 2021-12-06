@@ -43,6 +43,9 @@ function goToRoute($route)
         elseif(!empty($_SERVER['QUERY_STRING'])){
             actionFindSurvey($_GET['file']);
         }
+        else{
+            require_once __DIR__ . "/../templates/404.php";
+        }
     }
 }
 
