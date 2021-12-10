@@ -2,7 +2,10 @@
     "name": "taurinz/survey-form",
     "autoload": {
         "files":[
-          "src/app/App.php"
+          "src/app/App.php", "src/app/Controller.php",
+          "src/app/Request.php",
+          "src/app/Response.php",
+          "src/app/Router.php"
         ],
         "classmap": [
             "src/*"        ]

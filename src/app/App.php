@@ -2,15 +2,14 @@
 
 namespace App;
 
+require __DIR__ . '/../../vendor/autoload.php';
+
+use function Router\startRouting;
+
 function Run()
 {
-    goToRoute(getCurrentRoute());
-}
+    startRouting();
 
-function getCurrentRoute()
-{
-    $urlData = parse_url($_SERVER['REQUEST_URI']);
-    return $urlData['path'];
 }
 
 // function goToRoute($route)
@@ -28,29 +27,7 @@ function getCurrentRoute()
 //     }
 // }
 
-function goToRoute($route)
-{ 
-    $trimmedRoute = $route !== '/' ? rtrim($route, '/') : $route;
-  
-    $rules = [
-        '/' => fn() => actionShowSurveyForm([]),
-        '/survey' => fn() => actionSurvey(),
-        '/survey/list' => fn() =>showList(),
-    ];
 
-    foreach ($rules as $pattern => $method) {
-        if ($pattern === $trimmedRoute) {
-            $method();
-            return;
-        }
-        
-    }
-    if (preg_match('/\/survey\/(?<id>\w+)/',$trimmedRoute)){
-        viewPostFile($trimmedRoute);
-        return;
-    }
-    actionNotFound();
-}
 
 function getHttpMethod()
 {
@@ -80,6 +57,7 @@ function redirect($route)
     exit();
 }
 
+
 function actionSurvey()
 {
     if (isPost()) {
@@ -97,7 +75,7 @@ function actionSurvey()
 
 function showList (){
     $path = __DIR__ . '/../../storage';
-    $files = array_filter(scandir($path), fn($i) => $i !== '.' & $i !== '..');
+    $files = array_filter(scandir($path), fn($i) => $i !== '.' & $i !== '..' & $i !== '.gitignore');
     view("list", [
         'files' => $files,
     ]);
@@ -110,14 +88,12 @@ function actionFindSurvey($params)
 
 function viewPostFile($postId)
 {
-    $postId = str_replace("/survey/","",$postId);
-    var_dump($postId);
     echo file_get_contents (__DIR__."/../../storage/{$postId}.json");
 }
 
 function actionShowSurveyForm()
 {
-    view("SurveyForm");
+    view("survey_form");
 }
 
 function IsPostFile()
