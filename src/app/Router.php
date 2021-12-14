@@ -1,13 +1,13 @@
 <?php
 namespace Router;
 
-use function App\actionNotFound;
-use function App\actionShowSurveyForm;
-use function App\actionSurvey;
-use function App\showList;
-use function App\viewPostFile;
+require_once __DIR__ . '/App.php';
+require_once __DIR__ . '/Request.php';
+require_once __DIR__ . '/Controller.php';
+require_once __DIR__ . '/Response.php';
 
-function startRouting(){
+function startRouting()
+{
     goToRoute(getCurrentRoute());
 }
 

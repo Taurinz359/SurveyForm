@@ -20,7 +20,7 @@
                     Sorry, an error has occured, Requested page not found!
                 </div>
                 <div >
-                    <a href="http://localhost:1234" class="btn-go-home"></span>Take Me Home </a>
+                    <a href="/" class="btn-go-home"></span>Take Me Home </a>
                 </div>
             </div>
         </div>

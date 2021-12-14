@@ -13,7 +13,7 @@
             <li>
                 <form method='get' action='/survey/'>
                     <input type='hidden'>
-                    <a href="<?=rtrim($file, '.json')?>" class="submit-button" id="post-file"><?=rtrim($file, '.json')?></a>
+                    <a href="<?= $file ?>" class="submit-button" id="post-file"><?= $file ?></a>
                     <!-- <button class="submit-button" type='submit'><?= $file ?></button>  -->
                 </form>
             </li>
