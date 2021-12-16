@@ -3,10 +3,9 @@
 function showList (){
     $path = __DIR__ . '/../../storage';
     $files = array_filter(scandir($path), fn($i) => $i !== '.' & $i !== '..' & $i !== '.gitignore');
-    foreach($files as $value){
-        $value = rtrim($value,'.json');
+    foreach($files as $key =>  $value){
+        $files[$key] = str_replace (".json","", $value);
     }
-    var_dump($files);
     view("list", [
         'files' => $files,
     ]);
@@ -23,8 +22,8 @@ function view($templateName, $data = []) {
     $suffix = '.php';
 
     $fullPath = $basePath . $templateName . $suffix;
-
-    require_once $fullPath;
+    require_once __DIR__ . '/../templates/survey_form.php';
+    // require_once $fullPath;
 }
 
 function recordInFile($data){

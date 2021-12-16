@@ -6,12 +6,10 @@ function actionSurvey()
         IsPostFile();
         return;
     }
-
     if (!array_key_exists('file', $_GET)) {
         actionNotFound();
         return;
     }
-
     actionFindSurvey($_GET['file']);
 }
 

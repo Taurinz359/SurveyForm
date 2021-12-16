@@ -1,4 +1,5 @@
 <?php
+
 namespace Router;
 
 require_once __DIR__ . '/App.php';
@@ -22,14 +23,14 @@ function goToRoute($route)
     $trimmedRoute = $route !== '/' ? rtrim($route, '/') : $route;
 
     $rules = [
-        '/^\/$/' => fn() => actionShowSurveyForm([]),
-        '/^\/survey$/' => fn() => actionSurvey(),
-        '/^\/survey\/list$/' => fn() =>showList(),
-        '/\/survey\/(?<id>\w+)/' => fn($params) => viewPostFile($params['id']),
+        '/^\/$/' => fn () => actionShowSurveyForm([]),
+        '/^\/survey$/' => fn () => actionSurvey(),
+        '/^\/survey\/list$/' => fn () => showList(),
+        '/\/survey\/(?<id>\w+)/' => fn ($params) => viewPostFile($params['id']),
 
     ];
     foreach ($rules as $pattern => $method) {
-        if(preg_match($pattern,$trimmedRoute, $params)) {
+        if (preg_match($pattern, $trimmedRoute, $params)) {
             $method($params);
             return;
         }
