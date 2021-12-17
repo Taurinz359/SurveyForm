@@ -3,7 +3,7 @@
 function actionSurvey()
 {
     if (isPost()) {
-        IsPostFile();
+        checkPost();
         return;
     }
     if (!array_key_exists('file', $_GET)) {
@@ -28,7 +28,7 @@ function isPost()
     return getHttpMethod() === 'POST';
 }
 
-function IsPostFile()
+function checkPost()
 {
     actionShowSurveyForm();
     if (!empty($_POST)) {
