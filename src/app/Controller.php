@@ -1,15 +1,16 @@
 <?php
 
 function showList (){
+    require_once __DIR__ . '/../templates/index.php';
     $path = __DIR__ . '/../../storage';
     $files = array_filter(scandir($path), fn($i) => $i !== '.' & $i !== '..' & $i !== '.gitignore');
     foreach($files as $key =>  $value){
         $files[$key] = str_replace (".json","", $value);
     }
-    view("list", [
+    IncludeViews("list", [
         'files' => $files,
     ]);
-
+    
 }
 
 function actionFindSurvey($params)
@@ -17,14 +18,17 @@ function actionFindSurvey($params)
     viewPostFile($params ?? 'null');
 }
 
-function view($templateName, $data = []) {
-    $basePath = __DIR__ . '/../templates/';
-    $suffix = '.php';
+// function view($templateName, $data = []) {
+//     require_once __DIR__ . '/../templates/index.php';
+//     $basePath = __DIR__ . '/../templates/';
+//     $suffix = '.php';
+//     IncludeViews($templateName);
 
-    $fullPath = $basePath . $templateName . $suffix;
-    require_once __DIR__ . '/../templates/survey_form.php';
-    // require_once $fullPath;
-}
+
+
+//     // $fullPath = $basePath . $templateName . $suffix;
+//     // require_once $fullPath;
+// }
 
 function recordInFile($data){
     $postId = uniqid();

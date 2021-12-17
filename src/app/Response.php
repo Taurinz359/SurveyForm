@@ -1,10 +1,10 @@
 <?php
-
+require_once __DIR__ . "/../templates/index.php";
 
 function actionNotFound()
 {
     http_response_code(404);
-    view("404");
+    IncludeViews("404");
 }
 
 function redirect($route)
@@ -16,10 +16,16 @@ function redirect($route)
 
 function viewPostFile($postId)
 {
-    echo file_get_contents (__DIR__."/../../storage/{$postId}.json");
+    if (file_exists(__DIR__ . "/../../storage/{$postId}.json") === false) {
+        IncludeViews("404");
+        return;
+    }
+    $jsonFile = file_get_contents(__DIR__ . "/../../storage/{$postId}.json");
+    $file = json_decode($jsonFile);
+    IncludeViews("open_file", [], $file);
 }
 
 function actionShowSurveyForm()
 {
-    view("survey_form");
+    Includeviews("body");
 }

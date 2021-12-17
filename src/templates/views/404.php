@@ -20,7 +20,7 @@
                         Sorry, an error has occured, Requested page not found!
                     </div>
                     <div>
-                        <a href="/" class="btn-go-home"></span>Take Me Home </a>
+                        <a class="btn btn-primary mt-3" href="/" role="button">Take me home</a>
                     </div>
                 </div>
             </div>

@@ -30,8 +30,7 @@
 
         <div>
             <?php
-                require_once __DIR__ . '/../app/Controller.php';
-                require_once $fullPath;
+                require_once __DIR__ . $views;
             ?>
         </div>
 
