@@ -1,4 +1,5 @@
 <?php
+require_once  __DIR__ . '/../../vendor/autoload.php';
 
 function showList (){
     require_once __DIR__ . '/../templates/index.php';
@@ -12,6 +13,29 @@ function showList (){
     ]);
     
 }
+
+function actionShowSurveyForm()
+{
+    Includeviews("body");
+}
+
+function actionNotFound()
+{
+    http_response_code(404);
+    IncludeViews("404");
+}
+
+function viewPostFile($postId)
+{
+    if (file_exists(__DIR__ . "/../../storage/{$postId}.json") === false) {
+        IncludeViews("404");
+        return;
+    }
+    $jsonFile = file_get_contents(__DIR__ . "/../../storage/{$postId}.json");
+    $file = json_decode($jsonFile);
+    IncludeViews("open_file", [], $file);
+}
+
 
 function actionFindSurvey($params)
 {
@@ -29,6 +53,8 @@ function actionFindSurvey($params)
 //     // $fullPath = $basePath . $templateName . $suffix;
 //     // require_once $fullPath;
 // }
+
+
 
 function recordInFile($data){
     $postId = uniqid();

@@ -1,4 +1,7 @@
 <?php
+namespace Src\App\Request;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 function actionSurvey()
 {

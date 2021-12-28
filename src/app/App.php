@@ -1,14 +1,13 @@
 <?php
 
-namespace App;
+namespace Src\App;
 
-require_once __DIR__ . '/Router.php';
-use function Router\startRouting;
+use Src\App\Router;
 
 
 function Run()
 {
-    startRouting();
+    Router\startRouting();
 }
 
 
