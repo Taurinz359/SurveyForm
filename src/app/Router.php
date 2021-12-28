@@ -2,9 +2,12 @@
 
 namespace Src\App\Router;
 
-use function Src\App\Request\actionSurvey;
-use function Src\App\Response\actionShowSurveyForm;
-use function Src\App\Response\viewPostFile;
+use function Src\App\Controller\actionNotFound;
+use function Src\App\Controller\actionShowList;
+use function Src\App\Controller\actionShowSurveyForm;
+use function Src\App\Controller\actionSurvey;
+use function Src\App\Controller\actionViewPostFile;
+use function Src\App\Storage\Start;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -30,11 +33,10 @@ function goToRoute($route)
     $trimmedRoute = $route !== '/' ? rtrim($route, '/') : $route;
 
     $rules = [
-        '/^\/$/' => fn() => \actionShowSurveyForm(),
+        '/^\/$/' => fn() => actionShowSurveyForm(),
         '/^\/survey$/' => fn() => actionSurvey(),
-        '/^\/survey\/list$/' => fn() => showList(),
-        '/\/survey\/(?<id>\w+)/' => fn($params) => \viewPostFile($params['id']),
-//        '/^\/survey\/storage$/' => fn() => Start()
+        '/^\/survey\/list$/' => fn() => actionShowList(),
+        '/\/survey\/(?<id>\w+)/' => fn($params) => actionViewPostFile($params['id']),
     ];
     foreach ($rules as $pattern => $method) {
         if (preg_match($pattern, $trimmedRoute, $params)) {
