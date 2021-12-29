@@ -8,13 +8,10 @@ services:
       - ./:/app
     ports:
       - '1234:8080'
-    
   php:
-    image: 'php:7.4-fpm-buster'
+    build: .
     volumes:
       - ./:/app
-    working_dir: /app
-  # todo : install postgres and delete mysql
   postgres:
     image: 'postgres:9.6.24-bullseye'
     environment:

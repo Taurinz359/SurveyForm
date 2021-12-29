@@ -5,27 +5,28 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use function Src\App\Request\checkPost;
 use function Src\App\Request\isPost;
 use function Src\App\Response\IncludeViews;
-use function Src\App\Storage\Start;
+use function Src\App\Storage\start;
 
 
 function actionShowList()
 {
     include_once __DIR__ . '/../../config/db_config.php';
-    require_once __DIR__ . '/../templates/index.php';
     $config = dbConfig();
 
     if ($config['DB_NAME'] === "json") {
         $path = __DIR__ . '/../../storage';
         $files = array_filter(scandir($path), fn($i) => $i !== '.' && $i !== '..' && $i !== '.gitignore');
+        var_dump($files);
         foreach ($files as $key => $value) {
             $files[$key] = str_replace(".json", "", $value);
         }
         IncludeViews("list", [
             'files' => $files,
         ]);
-        return;
+    } elseif ($config['DB_NAME'] === "pgsql") {
+        $id = start($config);
+        IncludeViews("db", $id );
     }
-    Start($config);
 }
 
 function actionShowSurveyForm()

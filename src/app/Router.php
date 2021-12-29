@@ -7,7 +7,7 @@ use function Src\App\Controller\actionShowList;
 use function Src\App\Controller\actionShowSurveyForm;
 use function Src\App\Controller\actionSurvey;
 use function Src\App\Controller\actionViewPostFile;
-use function Src\App\Storage\Start;
+use function Src\App\Storage\start;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
