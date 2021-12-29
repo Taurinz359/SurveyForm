@@ -5,6 +5,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use function Src\App\Request\checkPost;
 use function Src\App\Request\isPost;
 use function Src\App\Response\IncludeViews;
+use function Src\App\Storage\getUser;
 use function Src\App\Storage\start;
 
 
@@ -42,13 +43,20 @@ function actionNotFound()
 
 function actionViewPostFile($postId)
 {
-    if (file_exists(__DIR__ . "/../../storage/{$postId}.json") === false) {
-        IncludeViews("404");
-        return;
+    require_once __DIR__ . '/../../config/db_config.php';
+    $config = dbConfig();
+    if ($config["DB_NAME"] == "json") {
+        if (file_exists(__DIR__ . "/../../storage/{$postId}.json") === false) {
+            IncludeViews("404");
+            return;
+        }
+        $jsonFile = file_get_contents(__DIR__ . "/../../storage/{$postId}.json");
+        $file = json_decode($jsonFile);
+        IncludeViews("open_file", [], $file);
+    } elseif ($config["DB_NAME"] === "pgsql") {
+        $user = getUser($config, $postId);
+        IncludeViews("open_db", $user);
     }
-    $jsonFile = file_get_contents(__DIR__ . "/../../storage/{$postId}.json");
-    $file = json_decode($jsonFile);
-    IncludeViews("open_file", [], $file);
 }
 
 
