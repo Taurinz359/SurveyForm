@@ -2,9 +2,8 @@
 namespace Src\App\Request;
 
 use function Src\App\Controller\actionShowSurveyForm;
-use function Src\App\Controller\recordInFile;
+use function Src\App\Controller\createUserInDB;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
 
 function getHttpMethod()
 {
@@ -25,6 +24,6 @@ function checkPost()
 {
     actionShowSurveyForm();
     if (!empty($_POST)) {
-        recordInFile($_POST);
+        createUserInDB($_POST);
     }
 }

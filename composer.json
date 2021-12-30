@@ -7,7 +7,11 @@
       "src/app/Request.php",
       "src/app/Response.php",
       "src/app/Router.php",
-      "src/app/Storage.php"
+      "src/app/Database.php",
+      "src/app/Storage.php",
+      "src/app/Repositories/Repostitory.php",
+      "src/app/Repositories/DbRepository.php",
+      "src/app/Repositories/JsonRepository.php"
     ]
   },
   "authors": [

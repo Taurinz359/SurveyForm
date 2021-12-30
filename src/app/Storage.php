@@ -1,46 +1,23 @@
 <?php
-namespace  Src\App\Storage;
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace Src\App\Storage;
 
-use PDO;
+use function Src\App\Response\IncludeViews;
 
-function start(array $config): bool|array
+function allFiles(): array
 {
-    return prepareResponse(prepareQuery($config, connectDB($config)));
-}
-
-function getUser($config, $postID): array|bool
-{
-    return getUserInDB(prepareQuery($config, connectDB($config), $postID));
-}
-
-function connectDB(array $config): PDO
-{
-    return new PDO("{$config['DB_NAME']}:host={$config['DB_HOST']}", "{$config['DB_USERNAME']}", "{$config['DB_PASSWORD']}");
-}
-
-function prepareQuery(array $config, PDO $dbh, int $postID = null): bool|\PDOStatement
-{
-    if ($postID === null) {
-        $sql = "select id,name from {$config['DB_DATABASE']}";
-        $sth = $dbh->prepare($sql);
-        $sth->execute();
-        return $sth;
+    $path = __DIR__ . '/../../storage';
+    $files = array_filter(scandir($path), fn($i) => $i !== '.' && $i !== '..' && $i !== '.gitignore');
+    foreach ($files as $key => $value) {
+        $files[$key] = str_replace(".json", "", $value);
     }
-
-    $sql = "select * from {$config['DB_DATABASE']} WHERE id=:id";
-    $sth = $dbh->prepare($sql);
-    $sth->execute([':id' => $postID]);
-    return $sth;
-
+    return $files;
 }
 
-function prepareResponse(\PDOStatement $sth): bool|array
+function openUser(string $postID)
 {
-    return $ftl = $sth->fetchAll(PDO::FETCH_COLUMN,);
-}
-
-function getUserInDB(\PDOStatement $sth): array|bool
-{
-    return $sth->fetchAll(PDO::FETCH_ASSOC);
+    if (file_exists(__DIR__ . "/../../storage/{$postID}.json") === false) {
+        IncludeViews("404");
+    }
+    $jsonFile = file_get_contents(__DIR__ . "/../../storage/{$postID}.json");
+    return json_decode($jsonFile,true);
 }
