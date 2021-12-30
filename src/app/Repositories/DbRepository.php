@@ -28,6 +28,20 @@ function getUser($postID): array
     return prepareQuery(getConnection(),$postID);
 }
 
+function createUser($data){
+    $dbh = getConnection();
+    $sql = "insert into users (name, email, age, role, recomend, improve, comment) values (?,?,?,?,?,?,?)";
+    $sth = $dbh -> prepare($sql);
+    $sth ->execute([
+        $data["name"],
+        $data["email"],
+        $data["age"],
+        $data["role"],
+        $data["recomend"],
+        $data["improve"],
+        $data ["comment"]
+    ]);
+}
 function prepareQuery(PDO $dbh, int $postID = null): bool|array
 {
     $sql = "select * from users WHERE id=:id";
