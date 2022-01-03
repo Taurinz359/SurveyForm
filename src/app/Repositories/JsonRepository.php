@@ -4,6 +4,7 @@ namespace Src\App\Repositories\JsonRepository;
 
 use function Src\App\Response\includeViews;
 use function Src\App\Storage\allFiles;
+use function Src\App\Storage\saveDataInJson;
 
 function getList(): array
 {
@@ -16,9 +17,7 @@ function getCompletedForm(string $postID): array
 }
 
 function saveData(array $data){
-    $postId = uniqid();
-    $json = json_encode($data);
-    file_put_contents(__DIR__ . "/../../../storage/{$postId}{$data['name']}.json", $json, FILE_APPEND);
+    saveDataInJson($data);
 }
 
 function openUser(string $postID)

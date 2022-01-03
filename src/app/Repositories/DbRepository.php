@@ -24,8 +24,8 @@ function getList(): array
 }
 
 function getCompletedForm($postID): array
-{
-    return prepareQuery(getConnection(),$postID);
+{   $sql = "select * from users WHERE id=:id";
+    return query(getConnection(),$sql,[':id' => $postID]);
 }
 
 function saveData($data){
@@ -41,10 +41,4 @@ function saveData($data){
         $data["improve"],
         $data ["comment"]
     ]);
-}
-function prepareQuery(PDO $dbh, int $postID = null): bool|array
-{
-    $sql = "select * from users WHERE id=:id";
-    $sth = (query($dbh, $sql, [':id' => $postID]));
-    return $sth[0];
 }
