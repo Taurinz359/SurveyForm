@@ -7,8 +7,7 @@ use Src\App\Router;
 
 function run()
 {
-    Router\startRouting();
-    //
+    Router\startRouting();//
 }
 
 
