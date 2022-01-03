@@ -1,7 +1,7 @@
 <?php
 namespace Src\App\Storage;
 
-use function Src\App\Response\IncludeViews;
+use function Src\App\Response\includeViews;
 
 function allFiles(): array
 {
@@ -13,11 +13,3 @@ function allFiles(): array
     return $files;
 }
 
-function openUser(string $postID)
-{
-    if (file_exists(__DIR__ . "/../../storage/{$postID}.json") === false) {
-        IncludeViews("404");
-    }
-    $jsonFile = file_get_contents(__DIR__ . "/../../storage/{$postID}.json");
-    return json_decode($jsonFile,true);
-}

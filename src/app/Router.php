@@ -4,17 +4,9 @@ namespace Src\App\Router;
 
 use function Src\App\Controller\actionNotFound;
 use function Src\App\Controller\actionShowList;
-use function Src\App\Controller\actionShowSurveyForm;
 use function Src\App\Controller\actionSurvey;
 use function Src\App\Controller\actionViewPostFile;
-use function Src\App\Storage\start;
-
-require_once __DIR__ . '/../../vendor/autoload.php';
-
-//require_once __DIR__ . '/App.php';
-//require_once __DIR__ . '/Request.php';
-//require_once __DIR__ . '/Response.php';
-//require_once __DIR__ . '/Controller.php';
+use function Src\App\Response\includeViews;
 
 
 function startRouting()
@@ -33,7 +25,7 @@ function goToRoute($route)
     $trimmedRoute = $route !== '/' ? rtrim($route, '/') : $route;
 
     $rules = [
-        '/^\/$/' => fn() => actionShowSurveyForm(),
+        '/^\/$/' => fn() => includeViews("body"),
         '/^\/survey$/' => fn() => actionSurvey(),
         '/^\/survey\/list$/' => fn() => actionShowList(),
         '/\/survey\/(?<id>\w+)/' => fn($params) => actionViewPostFile($params['id']),

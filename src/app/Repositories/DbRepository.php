@@ -3,16 +3,16 @@
 namespace Src\App\Repositories\DbRepository;
 
 use PDO;
-use function Src\App\Database\connectDB;
+use function Src\App\Database\connectPgsql;
 use function Src\App\Database\query;
 use function Src\App\Repositories\Repository\getConfig;
 
 function getConnection(): \PDO
 {
-    return connectDB(getConfig());
+    return connectPgsql(getConfig());
 }
 
-function start(): array
+function getList(): array
 {
     $connection = getConnection();
 
@@ -23,12 +23,12 @@ function start(): array
     return array_map(fn($i) => $i['id'], $ids);
 }
 
-function getUser($postID): array
+function getCompletedForm($postID): array
 {
     return prepareQuery(getConnection(),$postID);
 }
 
-function createUser($data){
+function saveData($data){
     $dbh = getConnection();
     $sql = "insert into users (name, email, age, role, recomend, improve, comment) values (?,?,?,?,?,?,?)";
     $sth = $dbh -> prepare($sql);

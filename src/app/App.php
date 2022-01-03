@@ -5,7 +5,7 @@ namespace Src\App;
 use Src\App\Router;
 
 
-function Run()
+function run()
 {
     Router\startRouting();
 }

@@ -1,8 +1,8 @@
 <?php
 namespace Src\App\Request;
 
-use function Src\App\Controller\actionShowSurveyForm;
 use function Src\App\Controller\createUserInDB;
+use function Src\App\Response\includeViews;
 
 
 function getHttpMethod()
@@ -22,7 +22,7 @@ function isPost()
 
 function checkPost()
 {
-    actionShowSurveyForm();
+    includeViews("body");
     if (!empty($_POST)) {
         createUserInDB($_POST);
     }

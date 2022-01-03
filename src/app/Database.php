@@ -3,7 +3,7 @@ namespace  Src\App\Database;
 
 use PDO;
 
-function connectDB(array $config): PDO
+function connectPgsql(array $config): PDO
 {
     return new PDO("{$config['DB_NAME']}:host={$config['DB_HOST']}", "{$config['DB_USERNAME']}", "{$config['DB_PASSWORD']}");
 }
