@@ -28,5 +28,5 @@ function openUser(string $postID)
     }
     $jsonFile = file_get_contents(__DIR__ . "/../../.././storage/{$postID}.json");
     return json_decode($jsonFile,true);
-//    dsdasdasdasd;
+
 }
