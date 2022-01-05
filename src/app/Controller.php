@@ -1,11 +1,13 @@
 <?php
-namespace Src\App\Controller;
+namespace App\Controller;
 
-use Src\App\Repositories\Repository;
-use function Src\App\Request\checkPost;
-use function Src\App\Request\isPost;
-use function Src\App\Response\includeViews;
+use App\Repositories\Repository;
+use function App\Request\isPost;
+use function App\Response\includeViews;
 
+function actionShowBody(){
+    includeViews("body");
+}
 
 function actionShowList()
 {
@@ -25,12 +27,6 @@ function actionViewPostFile($postId)
     includeViews("open_file", [], $data);
 }
 
-
-function actionFindSurvey($params)
-{
-    actionViewPostFile($params ?? 'null');
-}
-
 function actionSurvey()
 {
     if (isPost()) {
@@ -41,16 +37,16 @@ function actionSurvey()
         actionNotFound();
         return;
     }
-    actionFindSurvey($_GET['file']);
+    actionViewPostFile($_GET['file']);
+}
+function checkPost()
+{
+    includeViews("body");
+    if (!empty($_POST)) {
+        createUserInDB($_POST);
+    }
 }
 
-
-/**
- * @throws \Exception
- * Владлен лох
- * Посхалочка
- * С новым годом!
- */
 function createUserInDB($data)
 {
     Repository\call("saveData", $data);

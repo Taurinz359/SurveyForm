@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\App\Response;
+namespace App\Response;
 
 function redirect($route)
 {

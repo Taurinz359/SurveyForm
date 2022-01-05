@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\App\Repositories\JsonRepository;
+namespace App\Repositories\JsonRepository;
 
-use function Src\App\Response\includeViews;
-use function Src\App\Storage\allFiles;
-use function Src\App\Storage\saveDataInJson;
+use function App\Response\includeViews;
+use function App\Storage\allFiles;
+use function App\Storage\saveDataInJson;
 
 function getList(): array
 {

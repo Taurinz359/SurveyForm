@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\App\Repositories\DbRepository;
+namespace App\Repositories\DbRepository;
 
 use PDO;
-use function Src\App\Database\connectPgsql;
-use function Src\App\Database\query;
-use function Src\App\Repositories\Repository\getConfig;
+use function App\Database\connectPgsql;
+use function App\Database\query;
+use function App\Repositories\Repository\getConfig;
 
 function getConnection(): \PDO
 {
@@ -24,7 +24,7 @@ function getList(): array
 }
 
 function getCompletedForm($postID): array
-{   $sql = "select * from users WHERE id=:id";
+{   $sql = "SELECT * FROM users WHERE id=:id";
     return query(getConnection(),$sql,[':id' => $postID]);
 }
 

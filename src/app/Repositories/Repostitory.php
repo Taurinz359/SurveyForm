@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\App\Repositories\Repository;
+namespace App\Repositories\Repository;
 
 function getConfig(): array
 {
@@ -19,11 +19,11 @@ function call(string $methodName, ...$args)
     $driver = getDriver();
 
     if ($driver === 'json') {
-        return "Src\\App\\Repositories\\JsonRepository\\{$methodName}"(...$args);
+        return "App\\Repositories\\JsonRepository\\{$methodName}"(...$args);
     }
 
     if ($driver === 'pgsql') {
-        return "Src\\App\\Repositories\\DbRepository\\{$methodName}"(...$args);
+        return "App\\Repositories\\DbRepository\\{$methodName}"(...$args);
     }
 
     throw new \Exception('Undefined Driver');

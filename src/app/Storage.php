@@ -1,8 +1,8 @@
 <?php
 
-namespace Src\App\Storage;
+namespace App\Storage;
 
-use function Src\App\Response\includeViews;
+use function App\Response\includeViews;
 
 function allFiles(): array
 {
@@ -18,5 +18,5 @@ function saveDataInJson(array $data)
 {
     $postId = uniqid();
     $json = json_encode($data);
-    file_put_contents(__DIR__ . "/../../../storage/{$postId}{$data['name']}.json", $json, FILE_APPEND);
+    file_put_contents(__DIR__ . "/../../storage/{$postId}{$data['name']}.json", $json, FILE_APPEND);
 }

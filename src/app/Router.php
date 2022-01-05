@@ -1,12 +1,13 @@
 <?php
 
-namespace Src\App\Router;
+namespace App\Router;
 
-use function Src\App\Controller\actionNotFound;
-use function Src\App\Controller\actionShowList;
-use function Src\App\Controller\actionSurvey;
-use function Src\App\Controller\actionViewPostFile;
-use function Src\App\Response\includeViews;
+use function App\Controller\actionNotFound;
+use function App\Controller\actionShowBody;
+use function App\Controller\actionShowList;
+use function App\Controller\actionSurvey;
+use function App\Controller\actionViewPostFile;
+use function App\Response\includeViews;
 
 
 function startRouting()
@@ -25,7 +26,7 @@ function goToRoute($route)
     $trimmedRoute = $route !== '/' ? rtrim($route, '/') : $route;
 
     $rules = [
-        '/^\/$/' => fn() => includeViews("body"),
+        '/^\/$/' => fn() => actionShowBody(),
         '/^\/survey$/' => fn() => actionSurvey(),
         '/^\/survey\/list$/' => fn() => actionShowList(),
         '/\/survey\/(?<id>\w+)/' => fn($params) => actionViewPostFile($params['id']),

@@ -1,8 +1,8 @@
 <?php
-namespace Src\App\Request;
+namespace App\Request;
 
-use function Src\App\Controller\createUserInDB;
-use function Src\App\Response\includeViews;
+use function App\Controller\createUserInDB;
+use function App\Response\includeViews;
 
 
 function getHttpMethod()
@@ -20,10 +20,4 @@ function isPost()
     return getHttpMethod() === 'POST';
 }
 
-function checkPost()
-{
-    includeViews("body");
-    if (!empty($_POST)) {
-        createUserInDB($_POST);
-    }
-}
+

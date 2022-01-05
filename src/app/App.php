@@ -1,8 +1,8 @@
 <?php
 
-namespace Src\App;
+namespace App\App;
 
-use Src\App\Router;
+use App\Router;
 
 
 function run()
