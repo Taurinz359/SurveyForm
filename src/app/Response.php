@@ -10,7 +10,8 @@ function redirect($route)
 }
 
 
-function includeViews ($templateName, $data = [] , $file = null) {
+function includeViews($templateName, $data = [], $file = null)
+{
     $views = "/views/{$templateName}.php";
-    require_once __DIR__ . '/../templates/survey_form.php';
+    include_once __DIR__ . '/../templates/survey_form.php';
 }

@@ -16,7 +16,8 @@ function getCompletedForm(string $postID): array
     return openUser($postID);
 }
 
-function saveData(array $data){
+function saveData(array $data)
+{
     saveDataInJson($data);
 }
 
@@ -26,6 +27,5 @@ function openUser(string $postID)
         includeViews("404");
     }
     $jsonFile = file_get_contents(__DIR__ . "/../../.././storage/{$postID}.json");
-    return json_decode($jsonFile,true);
-
+    return json_decode($jsonFile, true);
 }

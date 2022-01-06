@@ -28,4 +28,3 @@ function call(string $methodName, ...$args)
 
     throw new \Exception('Undefined Driver');
 }
-

@@ -1,11 +1,14 @@
 <?php
+
 namespace App\Controller;
 
 use App\Repositories\Repository;
+
 use function App\Request\isPost;
 use function App\Response\includeViews;
 
-function actionShowBody(){
+function actionShowBody()
+{
     includeViews("body");
 }
 
@@ -23,7 +26,7 @@ function actionNotFound()
 
 function actionViewPostFile($postId)
 {
-    $data = Repository\call("getCompletedForm",$postId);
+    $data = Repository\call("getCompletedForm", $postId);
     includeViews("open_file", [], $data);
 }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace  App\Database;
 
 use PDO;
@@ -13,5 +14,4 @@ function query(PDO $dbh, string $sql, array $params = []): bool|array
     $sth = $dbh->prepare($sql);
     $sth->execute($params);
     return $sth->fetchAll(PDO::FETCH_ASSOC);
-    //
 }

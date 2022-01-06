@@ -3,6 +3,7 @@
 namespace App\Repositories\DbRepository;
 
 use PDO;
+
 use function App\Database\connectPgsql;
 use function App\Database\query;
 use function App\Repositories\Repository\getConfig;
@@ -24,15 +25,18 @@ function getList(): array
 }
 
 function getCompletedForm($postID): array
-{   $sql = "SELECT * FROM users WHERE id=:id";
-    return query(getConnection(),$sql,[':id' => $postID]);
+{
+    $sql = "SELECT * FROM users WHERE id=:id";
+    return query(getConnection(), $sql, [':id' => $postID]);
 }
 
-function saveData($data){
+function saveData($data)
+{
     $dbh = getConnection();
-    $sql = "insert into users (name, email, age, role, recomend, improve, comment) values (?,?,?,?,?,?,?)";
+    $sql = "INSERT INTO users (name, email, age, role, recomend, improve, comment) VALUES (?,?,?,?,?,?,?)";
     $sth = $dbh -> prepare($sql);
-    $sth ->execute([
+    $sth ->execute(
+        [
         $data["name"],
         $data["email"],
         $data["age"],
@@ -40,5 +44,6 @@ function saveData($data){
         $data["recomend"],
         $data["improve"],
         $data ["comment"]
-    ]);
+        ]
+    );
 }

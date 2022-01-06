@@ -9,7 +9,6 @@ use function App\Controller\actionSurvey;
 use function App\Controller\actionViewPostFile;
 use function App\Response\includeViews;
 
-
 function startRouting()
 {
     goToRoute(getCurrentRoute());
